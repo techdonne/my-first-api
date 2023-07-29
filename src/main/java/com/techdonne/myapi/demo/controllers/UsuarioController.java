@@ -5,8 +5,11 @@ import com.techdonne.myapi.demo.entities.Usuario;
 import com.techdonne.myapi.demo.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -28,5 +31,12 @@ public class UsuarioController {
     @PutMapping(value = "/{id}")
     public UsuarioResponseDTO update(@PathVariable Integer id, @RequestBody Usuario usuario){
         return usuarioService.update(id, usuario);
+    }
+
+    @PostMapping
+    public ResponseEntity<Usuario> create(@RequestBody Usuario usuario){
+        UsuarioResponseDTO newUsuario = usuarioService.create(usuario);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(newUsuario.id()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 }

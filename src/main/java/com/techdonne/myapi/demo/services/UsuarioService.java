@@ -38,4 +38,10 @@ public class UsuarioService {
         List<Usuario> obj = usuarioRepository.findAll();
         return obj.stream().map(x -> new UsuarioResponseDTO(x)).toList();
     }
+
+
+    public UsuarioResponseDTO create(Usuario usuario) {
+        usuario.setId(null);
+        return new UsuarioResponseDTO(usuarioRepository.save(usuario));
+    }
 }
