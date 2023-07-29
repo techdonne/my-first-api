@@ -44,4 +44,9 @@ public class UsuarioService {
         usuario.setId(null);
         return new UsuarioResponseDTO(usuarioRepository.save(usuario));
     }
+
+    public void delete(Integer id) {
+        Usuario usuario = findById(id);
+        usuarioRepository.deleteById(id);
+    }
 }

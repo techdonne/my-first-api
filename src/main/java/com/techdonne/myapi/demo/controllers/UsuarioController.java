@@ -39,4 +39,10 @@ public class UsuarioController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(newUsuario.id()).toUri();
         return ResponseEntity.created(uri).build();
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete (@PathVariable Integer id){
+        usuarioService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }
