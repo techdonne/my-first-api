@@ -17,6 +17,18 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
     @Transactional
+    public UsuarioResponseDTO update(Integer id, Usuario usuario) {
+        Usuario newUsuario = findById(id); //Reaproveitamento de método para pegar excessão
+
+        newUsuario.setNome(usuario.getNome());
+        newUsuario.setLogin(usuario.getLogin());
+        newUsuario.setSenha(usuario.getSenha());
+
+        return new UsuarioResponseDTO(usuarioRepository.save(newUsuario));
+
+    }
+
+    @Transactional
     public Usuario findById(Integer id){
         Optional<Usuario> obj =  usuarioRepository.findById(id);
         return obj.orElseThrow(() -> new UsuarioException("Objeto não encontrado Id: " + id + ", Tipo " + Usuario.class.getName()));
