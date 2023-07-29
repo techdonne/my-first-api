@@ -1,12 +1,12 @@
 package com.techdonne.myapi.demo.entities;
 
+import com.techdonne.myapi.demo.dto.UsuarioResponseDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -34,6 +34,13 @@ public class Usuario implements Serializable {
         this.nome = nome;
         this.login = login;
         this.senha = senha;
+    }
+
+    public Usuario (UsuarioResponseDTO usuarioResponseDTO){
+        this.id = usuarioResponseDTO.id();
+        this.nome = usuarioResponseDTO.nome();
+        this.login = usuarioResponseDTO.login();
+        this.senha = usuarioResponseDTO.senha();
     }
 
     public Integer getId() {
